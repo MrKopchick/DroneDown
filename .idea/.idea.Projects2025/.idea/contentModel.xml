@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Home\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Home\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_Projects2025.-242941624.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Home\Documents\Projects2025" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="other" t="Include">
+          <e p="HQ Explosions Pack FREE" t="Include">
+            <e p="Environment" t="Include">
+              <e p="Environment.shader" t="Include" />
+            </e>
+            <e p="Scripts" t="Include">
+              <e p="changeEffects.cs" t="Include" />
+            </e>
+            <e p="Shaders" t="Include">
+              <e p="Explosion.shader" t="Include" />
+            </e>
+          </e>
+          <e p="intelligent_mesh_combiner-main" t="Include">
+            <e p="Editor" t="Include">
+              <e p="IntelligentMeshCombiner.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Mirza Beig" t="Include">
+            <e p="Cinematic Explosions FREE" t="Include">
+              <e p="Scripts" t="Include">
+                <e p="CustomImpulse.cs" t="Include" />
+                <e p="DemoController.cs" t="Include" />
+                <e p="FPSDisplay.cs" t="Include" />
+                <e p="FPSTest.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="Plugins" t="Include">
+            <e p="Demigiant" t="Include">
+              <e p="DOTween" t="Include">
+                <e p="Modules" t="Include">
+                  <e p="DOTweenModuleAudio.cs" t="Include" />
+                  <e p="DOTweenModuleEPOOutline.cs" t="Include" />
+                  <e p="DOTweenModulePhysics.cs" t="Include" />
+                  <e p="DOTweenModulePhysics2D.cs" t="Include" />
+                  <e p="DOTweenModuleSprite.cs" t="Include" />
+                  <e p="DOTweenModuleUI.cs" t="Include" />
+                  <e p="DOTweenModuleUnityVersion.cs" t="Include" />
+                  <e p="DOTweenModuleUtils.cs" t="Include" />
+                </e>
+                <e p="readme.txt" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="CameraShake" t="Include">
+            <e p="CameraShake.cs" t="Include" />
+          </e>
+          <e p="Economic" t="Include">
+            <e p="EconomyBase.cs" t="Include" />
+            <e p="EconomyManager.cs" t="Include" />
+            <e p="SecureEconomy.cs" t="Include" />
+          </e>
+          <e p="GameManagment" t="Include">
+            <e p="GameManager.cs" t="Include" />
+            <e p="MissileStorageManager.cs" t="Include" />
+            <e p="TimeManager.cs" t="Include" />
+            <e p="ToggleLightByTime.cs" t="Include" />
+          </e>
+          <e p="ID-card" t="Include">
+            <e p="Construction" t="Include">
+              <e p="ConstructionProcess.cs" t="Include" />
+              <e p="ConstructionQueue.cs" t="Include" />
+              <e p="GenericIDCard.cs" t="Include" />
+            </e>
+            <e p="Content" t="Include">
+              <e p="AAStationIDCard.cs" t="Include" />
+              <e p="FactoryIDCard.cs" t="Include" />
+              <e p="GunAAStationIDCard.cs" t="Include" />
+              <e p="MineIDCard.cs" t="Include" />
+              <e p="MissileFactoryIDCard.cs" t="Include" />
+              <e p="MissileStorageIDCard.cs" t="Include" />
+            </e>
+            <e p="IDCardBase.cs" t="Include" />
+            <e p="IDCardManager.cs" t="Include" />
+            <e p="Routing" t="Include">
+              <e p="ObjectCounterUI.cs" t="Include" />
+              <e p="ObjectRegistry.cs" t="Include" />
+              <e p="SelectableObject.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Objects" t="Include">
+            <e p="AirDefenseSystems" t="Include">
+              <e p="AAStation.cs" t="Include" />
+              <e p="AAStationBase.cs" t="Include" />
+              <e p="Bullet.cs" t="Include" />
+              <e p="GunAAStation.cs" t="Include" />
+              <e p="Missile.cs" t="Include" />
+            </e>
+            <e p="Camera" t="Include">
+              <e p="CameraController.cs" t="Include" />
+            </e>
+            <e p="City" t="Include">
+              <e p="CityIdCard.cs" t="Include" />
+              <e p="CityStats.cs" t="Include" />
+              <e p="HouseManager.cs" t="Include" />
+            </e>
+            <e p="Factory" t="Include">
+              <e p="Factory.cs" t="Include" />
+              <e p="MissileFactory.cs" t="Include" />
+            </e>
+            <e p="Mine" t="Include">
+              <e p="Mine.cs" t="Include" />
+            </e>
+            <e p="Shahed" t="Include">
+              <e p="Shahed.cs" t="Include" />
+              <e p="ShahedHealth.cs" t="Include" />
+              <e p="ShahedSpawnAI.cs" t="Include" />
+              <e p="ShahedSpawner.cs" t="Include" />
+              <e p="SpawnableObjectInstance.cs" t="Include" />
+            </e>
+            <e p="Spawner" t="Include">
+              <e p="SpawnableObject.cs" t="Include" />
+              <e p="SpawnButton.cs" t="Include" />
+              <e p="SpawnManager.cs" t="Include" />
+            </e>
+            <e p="Storage" t="Include">
+              <e p="MissileStorage.cs" t="Include" />
+            </e>
+          </e>
+          <e p="TimeUI.cs" t="Include" />
+          <e p="UI" t="Include">
+            <e p="EconomyUI.cs" t="Include" />
+            <e p="HoverUIManager.cs" t="Include" />
+            <e p="NotificationManager.cs" t="Include" />
+            <e p="NotificationPanel.cs" t="Include" />
+            <e p="OpenPanelScript.cs" t="Include" />
+            <e p="ToggleLightUI.cs" t="Include" />
+            <e p="TogglePanels.cs" t="Include" />
+            <e p="UIPanelManager.cs" t="Include" />
+          </e>
+        </e>
+        <e p="TextMesh Pro" t="Include">
+          <e p="Fonts" t="Include">
+            <e p="LiberationSans - OFL.txt" t="Include" />
+          </e>
+          <e p="Resources" t="Include">
+            <e p="LineBreaking Following Characters.txt" t="Include" />
+            <e p="LineBreaking Leading Characters.txt" t="Include" />
+          </e>
+          <e p="Shaders" t="Include">
+            <e p="TMP_Bitmap-Custom-Atlas.shader" t="Include" />
+            <e p="TMP_Bitmap-Mobile.shader" t="Include" />
+            <e p="TMP_Bitmap.shader" t="Include" />
+            <e p="TMP_SDF Overlay.shader" t="Include" />
+            <e p="TMP_SDF SSD.shader" t="Include" />
+            <e p="TMP_SDF-Mobile Masking.shader" t="Include" />
+            <e p="TMP_SDF-Mobile Overlay.shader" t="Include" />
+            <e p="TMP_SDF-Mobile SSD.shader" t="Include" />
+            <e p="TMP_SDF-Mobile.shader" t="Include" />
+            <e p="TMP_SDF-Surface-Mobile.shader" t="Include" />
+            <e p="TMP_SDF-Surface.shader" t="Include" />
+            <e p="TMP_SDF.shader" t="Include" />
+            <e p="TMP_Sprite.shader" t="Include" />
+            <e p="TMPro.cginc" t="Include" />
+            <e p="TMPro_Mobile.cginc" t="Include" />
+            <e p="TMPro_Properties.cginc" t="Include" />
+            <e p="TMPro_Surface.cginc" t="Include" />
+          </e>
+          <e p="Sprites" t="Include">
+            <e p="EmojiOne Attribution.txt" t="Include" />
+            <e p="EmojiOne.json" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Projects2025.sln" t="IncludeFlat" />
+      <e p="Temp\Bin" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>

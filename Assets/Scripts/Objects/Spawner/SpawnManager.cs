@@ -5,6 +5,8 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private LayerMask placementLayer;
     [SerializeField] private float maxSlopeAngle = 30f;
+    [SerializeField] private float minDistanceBetweenObjects = 5f;
+    [SerializeField] private float maxHeightDifference = 2f;
 
     private SpawnButton activeButton;
     private SpawnableObject currentSpawnableObject;
@@ -66,7 +68,23 @@ public class SpawnManager : MonoBehaviour
         if (Physics.Raycast(position + Vector3.up * 10f, Vector3.down, out RaycastHit hit, 20f, placementLayer))
         {
             float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
-            return slopeAngle <= maxSlopeAngle;
+            if (slopeAngle > maxSlopeAngle) return false;
+
+            Collider[] colliders = Physics.OverlapSphere(position, minDistanceBetweenObjects);
+            foreach (var collider in colliders)
+            {
+                if (collider.gameObject.CompareTag("SpawnedObject"))
+                {
+                    return false;
+                }
+            }
+
+            if (Mathf.Abs(hit.point.y - position.y) > maxHeightDifference)
+            {
+                return false;
+            }
+
+            return true;
         }
         return false;
     }
@@ -97,6 +115,7 @@ public class SpawnManager : MonoBehaviour
         if (currentSpawnableObject == null || currentSpawnableObject.prefab == null) return;
 
         GameObject newObject = Instantiate(currentSpawnableObject.prefab, position, Quaternion.identity);
+        newObject.tag = "SpawnedObject";
 
         var construction = newObject.GetComponent<ConstructionProcess>();
         if (construction != null)

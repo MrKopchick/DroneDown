@@ -63,7 +63,7 @@ public class ShahedSpawnAI : MonoBehaviour
         HouseManager[] allHouseManagers = FindObjectsOfType<HouseManager>();
         foreach (var manager in allHouseManagers)
         {
-            if (manager != null && !houseManagers.Contains(manager))
+            if (manager != null && !manager.IsEmpty())
             {
                 houseManagers.Add(manager);
             }
@@ -96,17 +96,7 @@ public class ShahedSpawnAI : MonoBehaviour
                 }
                 else
                 {
-                    HouseManager targetManager = houseManagers[UnityEngine.Random.Range(0, houseManagers.Count)];
-                    Vector3 targetPosition = targetManager.GetRandomHousePosition();
-
-                    if (targetPosition != Vector3.zero)
-                    {
-                        shahedScript.SetTarget(targetPosition, targetManager);
-                    }
-                    else
-                    {
-                        Debug.LogWarning("Target manager has no houses left.");
-                    }
+                    AssignFallbackTarget(shahedScript);
                 }
             }
 
@@ -118,35 +108,21 @@ public class ShahedSpawnAI : MonoBehaviour
         OnAttack?.Invoke();
     }
 
-    private Transform FindTarget()
+    private void AssignFallbackTarget(Shahed shahedScript)
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, targetDetectionRadius);
-        foreach (var hit in hits)
+        foreach (var manager in houseManagers)
         {
-            var spawnableInstance = hit.GetComponent<SpawnableObjectInstance>();
-            if (spawnableInstance != null && spawnableInstance.IsTarget)
+            if (manager == null || manager.IsEmpty()) continue;
+
+            Vector3 housePosition = manager.GetRandomHousePosition();
+            if (housePosition != Vector3.zero)
             {
-                RegisterTarget(hit.transform);
-                return hit.transform;
+                shahedScript.SetTarget(housePosition, manager);
+                return;
             }
         }
-        return null;
-    }
 
-    private void RegisterTarget(Transform target)
-    {
-        if (!activeTargets.Contains(target))
-        {
-            activeTargets.Add(target);
-        }
-    }
-
-    private void UnregisterTarget(Transform target)
-    {
-        if (activeTargets.Contains(target))
-        {
-            activeTargets.Remove(target);
-        }
+        Debug.LogWarning("No valid targets available for Shahed drones.");
     }
 
     private Transform GetRandomTarget()
