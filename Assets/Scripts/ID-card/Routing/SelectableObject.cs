@@ -36,11 +36,6 @@ public class SelectableObject : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (IDCardManager.Instance == null)
-        {
-            Debug.LogError("IDCardManager.Instance not found!");
-            return;
-        }
 
         if (idCard != null)
         {

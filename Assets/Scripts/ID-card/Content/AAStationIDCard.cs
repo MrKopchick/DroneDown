@@ -18,7 +18,7 @@ public class AAStationIDCard : IDCardBase
     {
         if (aaStation == null) return "No AAStation data available";
 
-        return $"Detection Radius: {aaStation.detectionRadius}\n" +
+        return $"Detection Radius: {aaStation.GetDetectionRadius()}\n" +
                $"Missiles: {aaStation.GetCurrentMissiles()}/{aaStation.GetMaxMissiles()}\n" +
                $"Reload Time: {aaStation.GetReloadTime()}s";
     }

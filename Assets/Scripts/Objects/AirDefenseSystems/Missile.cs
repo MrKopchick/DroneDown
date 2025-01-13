@@ -3,25 +3,30 @@ using System;
 
 public class Missile : MonoBehaviour
 {
-    public Transform target;
-    public float initialSpeed = 10f;
-    public float maxSpeed = 40f;
-    public float acceleration = 5f;
-    public float rotationSpeed = 60f;
-    public float collisionRadius = 1f;
-    public float maxLifetime = 10f;
-    public ParticleSystem trailEffect;
-    public Transform modelTransform;
+    [Header("Missile Settings")]
+    [SerializeField] private float initialSpeed = 10f;
+    [SerializeField] private float maxSpeed = 40f;
+    [SerializeField] private float acceleration = 5f;
+    [SerializeField] private float rotationSpeed = 60f;
+    [SerializeField] private float collisionRadius = 1f;
+    [SerializeField] private float maxLifetime = 10f;
+
+    [Header("Visual Effects")]
+    [SerializeField] private ParticleSystem trailEffect;
+    [SerializeField] private Light missileLight;
+    [SerializeField] private Transform modelTransform;
 
     private float currentSpeed;
-    private bool isExploded = false;
-    
-    public event Action<Missile> OnMissed;
-    public event Action<Missile> OnMissileDestroyed;
-
+    private bool isExploded;
+    public Transform target;
     private GameObject trailInstance;
 
-    void Start()
+    public event Action<Missile> OnMissed;
+    public event Action<Missile> OnDestroyed;
+
+    #region Initialization
+
+    private void Start()
     {
         if (trailEffect != null)
         {
@@ -31,90 +36,126 @@ public class Missile : MonoBehaviour
             trailEffect.Play();
         }
 
+        if (missileLight != null)
+        {
+            missileLight.enabled = true;
+        }
+
         currentSpeed = initialSpeed;
-
+        Invoke(nameof(StopEffects), 5f);
         Invoke(nameof(DestroyMissile), maxLifetime);
-        Destroy(gameObject, maxLifetime + 10f);
     }
+    #endregion
 
-    void Update()
+    #region Unity Callbacks
+
+    private void Update()
     {
         if (isExploded || target == null)
         {
             HandleMiss();
             return;
         }
-        CameraShake.Instance.ShakeWithDistance(gameObject.transform.position, 0.4f, 40f, 0.05f);
-        Vector3 directionToTarget = (target.position - transform.position).normalized;
-        
-        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        
-        transform.position += transform.forward * currentSpeed * Time.deltaTime;
-        currentSpeed = Mathf.Min(currentSpeed + acceleration * Time.deltaTime, maxSpeed);
-        
-        if (trailInstance != null)
-        {
-            trailInstance.transform.position = transform.position;
-        }
-        
-        if (Vector3.Distance(transform.position, target.position) <= collisionRadius)
+
+        MoveTowardsTarget();
+        UpdateTrailPosition();
+
+        if (IsTargetHit())
         {
             Explode();
         }
     }
 
+    private void OnDestroy()
+    {
+        CleanupTrail();
+    }
+
+    #endregion
+
+    #region Core Logic
+
+    private void MoveTowardsTarget()
+    {
+        Vector3 directionToTarget = (target.position - transform.position).normalized;
+        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        transform.position += transform.forward * currentSpeed * Time.deltaTime;
+
+        currentSpeed = Mathf.Min(currentSpeed + acceleration * Time.deltaTime, maxSpeed);
+    }
+    private bool IsTargetHit()
+    {
+        return Vector3.Distance(transform.position, target.position) <= collisionRadius;
+    }
     private void Explode()
     {
         if (isExploded) return;
+
         isExploded = true;
-        
+
         if (target != null)
         {
-            //Debug.Log($"Target destroyed: {target.name}");
             Destroy(target.gameObject);
         }
 
+        StopEffects();
         DestroyMissile();
     }
 
     private void HandleMiss()
     {
-        if (!isExploded)
-        {
-            //Debug.Log("Missile missed the target.");
-            OnMissed?.Invoke(this);
-        }
+        if (isExploded) return;
 
+        StopEffects();
+        OnMissed?.Invoke(this);
         DestroyMissile();
     }
 
-    private void DestroyMissile()
+    private void StopEffects()
     {
-        OnMissileDestroyed?.Invoke(this);
-
-        if (trailEffect != null && trailEffect.isPlaying)
+        if (trailEffect != null)
         {
             trailEffect.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         }
 
-        DestroyModel();
-        Destroy(gameObject, 2f);
-    }
-
-    private void DestroyModel()
-    {
-        if (modelTransform != null)
+        if (missileLight != null)
         {
-            Destroy(modelTransform.gameObject);
+            missileLight.enabled = false;
         }
     }
 
-    private void OnDestroy()
+    #endregion
+
+    #region Trail Handling
+
+    private void UpdateTrailPosition()
+    {
+        if (trailInstance != null)
+        {
+            trailInstance.transform.position = transform.position;
+        }
+    }
+
+    private void CleanupTrail()
     {
         if (trailInstance != null)
         {
             Destroy(trailInstance, 5f);
         }
     }
+
+    #endregion
+
+    #region Destruction
+
+    private void DestroyMissile()
+    {
+        OnDestroyed?.Invoke(this);
+        CleanupTrail();
+        Destroy(gameObject);
+    }
+
+    #endregion
 }

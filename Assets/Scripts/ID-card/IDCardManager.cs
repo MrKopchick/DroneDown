@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
-using TMPro;
 using DG.Tweening;
+using TMPro;
 using UnityEngine.UI;
 
 public class IDCardManager : MonoBehaviour
@@ -61,20 +60,40 @@ public class IDCardManager : MonoBehaviour
             return;
         }
 
-        if (currentIDCard == idCard && isPanelOpen)
+        if (CityPanelUI.Instance != null && CityPanelUI.Instance.IsPanelOpen)
+        {
+            CityPanelUI.Instance.HideCityPanel(() => OpenPanel(idCard));
+        }
+        else if (currentIDCard == idCard && isPanelOpen)
         {
             Debug.Log("Panel is already open for this object.");
             return;
-        }
-
-        if (isPanelOpen)
-        {
-            HideIDCard(() => OpenPanel(idCard));
         }
         else
         {
             OpenPanel(idCard);
         }
+    }
+
+    public void ShowCityCard(CityIdCard cityCard)
+    {
+        if (cityCard == null)
+        {
+            Debug.LogError("Provided City ID card is null!");
+            return;
+        }
+
+        if (CityPanelUI.Instance != null)
+        {
+            CityPanelUI.Instance.ShowCityPanel(cityCard.GetComponent<CityStats>());
+            return;
+        }
+
+        nameText.text = cityCard.name;
+        contentText.text = cityCard.GetCityCardContent();
+
+        panel.DOAnchorPos(visiblePosition, animationDuration).SetEase(Ease.OutQuad);
+        isPanelOpen = true;
     }
 
     private void OpenPanel(IDCardBase idCard)
@@ -89,28 +108,10 @@ public class IDCardManager : MonoBehaviour
 
     private void UpdateIDCardContent()
     {
+        if (currentIDCard == null) return;
+
         nameText.text = currentIDCard.ObjectName;
         contentText.text = currentIDCard.GetIDCardContent();
-
-        /*if (currentIDCard is IDCardBase spawnable && spawnable is not null)
-        {
-            contentText.text += $"\nType: {spawnable.GetType().Name}";
-        }*/
-    }
-
-    public void ShowCityCard(CityIdCard cityCard)
-    {
-        if (cityCard == null)
-        {
-            Debug.LogError("Provided City ID card is null!");
-            return;
-        }
-
-        nameText.text = cityCard.name;
-        contentText.text = cityCard.GetCityCardContent();
-
-        panel.DOAnchorPos(visiblePosition, animationDuration).SetEase(Ease.OutQuad);
-        isPanelOpen = true;
     }
 
     public void HideIDCard(TweenCallback onComplete = null)
@@ -125,8 +126,20 @@ public class IDCardManager : MonoBehaviour
         });
     }
 
+    public void RestorePanel()
+    {
+        if (!isPanelOpen && currentIDCard != null)
+        {
+            UpdateIDCardContent();
+            panel.DOAnchorPos(visiblePosition, animationDuration).SetEase(Ease.OutQuad);
+            isPanelOpen = true;
+        }
+    }
+
     public void CloseButtonPressed()
     {
         HideIDCard();
     }
+
+    public bool IsPanelOpen => isPanelOpen;
 }

@@ -194,7 +194,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 001325892432dd34097bc01ad1d278d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 7001915681380806913, guid: d89577094feae32419ad145fed65e9ce, type: 3}
   initialSpeed: 25
   maxSpeed: 25
   acceleration: 2
@@ -202,7 +201,9 @@ MonoBehaviour:
   collisionRadius: 1
   maxLifetime: 50
   trailEffect: {fileID: 4686264437712795793}
+  missileLight: {fileID: 5043827020849945268}
   modelTransform: {fileID: 8717569885442380189}
+  target: {fileID: 7001915681380806913, guid: d89577094feae32419ad145fed65e9ce, type: 3}
 --- !u!65 &1892665632113730545
 BoxCollider:
   m_ObjectHideFlags: 0

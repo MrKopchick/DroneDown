@@ -1,7 +1,6 @@
 using UnityEngine;
 using  TMPro;
 using DG.Tweening;
-
 public class HoverUIManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text hoverText;

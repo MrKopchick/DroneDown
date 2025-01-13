@@ -7,7 +7,7 @@ public class AAStation : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private GameObject missilePrefab;
     [SerializeField] private Transform missileSpawnPoint;
-    [SerializeField] public float detectionRadius = 50f;
+    [SerializeField] private float detectionRadius = 50f;
     [SerializeField] private float reloadTime = 2f;
     [SerializeField] private int maxMissiles = 10;
 
@@ -113,7 +113,6 @@ public class AAStation : MonoBehaviour
     private void FireMissile()
     {
         currentMissiles--;
-        CameraShake.Instance.ShakeWithDistance(gameObject.transform.position, 0.5f, 40f, 0.05f);
         var missile = Instantiate(missilePrefab, missileSpawnPoint.position, Quaternion.LookRotation(currentTarget.position - missileSpawnPoint.position));
         missile.GetComponent<Missile>().target = currentTarget;
 
@@ -135,4 +134,5 @@ public class AAStation : MonoBehaviour
     public int GetCurrentMissiles() => currentMissiles;
     public int GetMaxMissiles() => maxMissiles;
     public float GetReloadTime() => reloadTime;
+    public float GetDetectionRadius() => detectionRadius;
 }

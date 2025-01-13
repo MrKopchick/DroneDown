@@ -35,7 +35,7 @@ public class CityIdCard : MonoBehaviour
     {
         if (IDCardManager.Instance != null)
         {
-            IDCardManager.Instance.ShowCityCard(this);
+            CityPanelUI.Instance.ShowCityPanel(cityStats);
         }
         else
         {

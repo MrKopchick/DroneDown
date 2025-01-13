@@ -19,11 +19,7 @@ public class SpawnButton : MonoBehaviour
     {
         button = GetComponent<Button>();
         buttonImage = GetComponent<Image>();
-
-        if (button != null)
-        {
-            button.onClick.AddListener(OnButtonClick);
-        }
+        button?.onClick.AddListener(OnButtonClick);
 
         UpdateButtonState();
     }
