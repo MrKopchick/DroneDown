@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 635bd6d73d9eaf744bdd2d44f87da77c, type: 3}
+  m_Name: AAR-Factory
+  m_EditorClassIdentifier: 
+  objectName: Air defence factory
+  prefab: {fileID: 6340106423201641295, guid: 9d8e9e6009253bf4d86caef279b36d66, type: 3}
+  previewPrefab: {fileID: 6340106423201641295, guid: a445bab43f4d36c41972463e1fbb6960, type: 3}
+  requiresConstruction: 1
+  baseConstructionTime: 10
+  constructionSpeedMultiplier: 1
+  isTarget: 1
+  price: 230000
