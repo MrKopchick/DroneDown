@@ -9,12 +9,14 @@ public class Shahed : MonoBehaviour
     [SerializeField] private float wobbleIntensity = 0.5f;
     [SerializeField] private float wobbleFrequency = 2f;
 
+    [SerializeField] private GameObject fireSmokeEffectPrefab; // Префаб ефекту вогню та диму
+
     public Vector3 targetPosition { get; set; }
     private HouseManager targetHouseManager;
 
     private bool isDiving = false;
     private Vector3 defaultDirection;
-     
+
     public bool IsDiving => isDiving; 
     public float Speed => speed;
     public float DiveSpeed => diveSpeed;
@@ -84,10 +86,7 @@ public class Shahed : MonoBehaviour
 
     private void AddWobble(ref Vector3 direction)
     {
-        /*float wobbleOffset = Mathf.Sin(Time.time * wobbleFrequency) * wobbleIntensity;
-        Vector3 wobble = new Vector3(wobbleOffset, 0, wobbleOffset);
-        direction += wobble;
-        direction.Normalize();*/
+        // Логіка для додання коливань
     }
 
     private void HandleCollisionWithTarget()
@@ -99,6 +98,13 @@ public class Shahed : MonoBehaviour
         else
         {
             Debug.Log($"Shahed reached target at {targetPosition}.");
+        }
+
+        // Спавн ефекту вогню та диму
+        if (fireSmokeEffectPrefab != null)
+        {
+            Vector3 spawnPosition = targetPosition + Vector3.up; 
+            Instantiate(fireSmokeEffectPrefab, spawnPosition, Quaternion.identity);
         }
 
         Destroy(gameObject);

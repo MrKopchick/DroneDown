@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public void AddResources(int amount)
     {
         totalResources += amount;
-        Debug.Log($"Total resources: {totalResources}");
+        //Debug.Log($"Total resources: {totalResources}");
     }
 
     public int GetTotalResources()

@@ -23,7 +23,7 @@ public class TimeManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        inGameTime = new DateTime(2032, 9, 1, 11, 0, 0);
+        inGameTime = new DateTime(2032, 9, 1, 3, 0, 0);
     }
 
     private void Update()

@@ -1,7 +1,7 @@
 ﻿// EconomyUI.cs
 using UnityEngine;
 using TMPro;
-namespace Economy{
+namespace Economy.UI {
     public class EconomyUI : MonoBehaviour
     {
         [Header("UI Elements")]

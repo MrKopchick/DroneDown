@@ -1,5 +1,4 @@
 using UnityEngine;
-using DG.Tweening;
 
 public class CameraController : MonoBehaviour
 {
@@ -24,12 +23,18 @@ public class CameraController : MonoBehaviour
     [Header("Initial Settings")]
     [SerializeField] private Vector3 initialPosition = new Vector3(0f, 20f, 0f);
 
+    [Header("Collision Settings")]
+    [SerializeField] private LayerMask terrainLayerMask;
+    [SerializeField] private float collisionOffset = 1f;
+
     private Vector3 velocity = Vector3.zero;
     private Vector3 targetPosition;
     private float targetHeight;
     private float heightVelocity;
     private float rotationX;
     private float rotationY;
+
+    public static bool IsInputBlocked { get; set; } = false; // Глобальний прапорець для блокування вводу
 
     private void Start()
     {
@@ -43,10 +48,13 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        if (IsInputBlocked) return; // Не обробляти введення, якщо ввід заблоковано
+
         HandleScroll();
         HandlePan();
         HandleRotation();
         ClampPosition();
+        PreventCollision();
     }
 
     private void HandleScroll()
@@ -80,7 +88,6 @@ public class CameraController : MonoBehaviour
             targetPosition += movement;
         }
 
-        // Apply inertia to the movement
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, inertiaDuration);
     }
 
@@ -101,5 +108,20 @@ public class CameraController : MonoBehaviour
     {
         targetPosition.x = Mathf.Clamp(targetPosition.x, -panLimit.x, panLimit.x);
         targetPosition.z = Mathf.Clamp(targetPosition.z, -panLimit.y, panLimit.y);
+    }
+
+    private void PreventCollision()
+    {
+        Ray ray = new Ray(targetPosition + Vector3.up * 100f, Vector3.down);
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, terrainLayerMask))
+        {
+            float terrainHeight = hit.point.y;
+            if (targetPosition.y < terrainHeight + collisionOffset)
+            {
+                targetPosition.y = terrainHeight + collisionOffset;
+            }
+        }
+
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, inertiaDuration);
     }
 }

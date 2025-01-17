@@ -10,8 +10,8 @@ public class ToggleLightByTime : MonoBehaviour
     [SerializeField, Range(70f, 255f)] private float maxLightIntensity = 255f;
 
     [Header("Time Settings")]
-    [SerializeField] private int sunriseHour = 6;
-    [SerializeField] private int sunsetHour = 18;
+    [SerializeField] private int sunriseHour = 2;
+    [SerializeField] private int sunsetHour = 15;
 
     private void Update()
     {

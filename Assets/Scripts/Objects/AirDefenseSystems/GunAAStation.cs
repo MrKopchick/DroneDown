@@ -4,9 +4,9 @@ public class GunAAStation : AAStationBase
 {
     [Header("Gun Settings")]
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private Transform gunBarrel;
     [SerializeField] private Transform turretBase;
-    [SerializeField] private Transform gunPivot;
+    [SerializeField] private Transform[] gunPivots;
+    [SerializeField] private Transform[] gunBarrels;
     [SerializeField] private float fireRate = 2f;
     [SerializeField] private float rotationSpeed = 120f;
     [SerializeField] private float bulletSpeed = 50f;
@@ -50,7 +50,7 @@ public class GunAAStation : AAStationBase
 
         Vector3 targetPosition = currentTarget.position;
         Vector3 targetVelocity = targetRb.velocity;
-        Vector3 gunPosition = gunBarrel.position;
+        Vector3 gunPosition = gunBarrels[0].position; // Використовуємо першу гармату для розрахунку
 
         float bulletTravelTime = 0f;
         Vector3 predictedPosition = targetPosition;
@@ -62,22 +62,14 @@ public class GunAAStation : AAStationBase
             bulletTravelTime = distanceToTarget / bulletSpeed;
             predictedPosition = targetPosition + targetVelocity * bulletTravelTime;
         }
-        
+
         predictedPosition.y += 1.9f;
-
-        float horizontalLeadFactor = 3.0f; 
-        Vector3 horizontalOffset = targetVelocity.normalized * horizontalLeadFactor;
-        predictedPosition += new Vector3(horizontalOffset.x, 0, horizontalOffset.z);
-        
-        Debug.DrawLine(gunBarrel.position, predictedPosition, Color.red, 1f);
-
         return predictedPosition;
     }
 
     private void RotateTurretTowards(Vector3 position)
     {
         Vector3 directionToTarget = position - turretBase.position;
-
         Vector3 horizontalDirection = new Vector3(directionToTarget.x, 0, directionToTarget.z).normalized;
 
         if (horizontalDirection != Vector3.zero)
@@ -86,18 +78,18 @@ public class GunAAStation : AAStationBase
             turretBase.rotation = Quaternion.RotateTowards(turretBase.rotation, horizontalRotation, rotationSpeed * Time.deltaTime);
         }
 
-        Vector3 localDirection = turretBase.InverseTransformDirection(position - gunBarrel.position);
-        
-        float verticalAdjustment = 5.0f;
-        float angle = CalculateLaunchAngle(localDirection.magnitude, localDirection.y) + verticalAdjustment;
-
-        if (angle > 0)
+        foreach (var gunPivot in gunPivots)
         {
-            Quaternion verticalRotation = Quaternion.Euler(-angle, 0, 0);
-            gunPivot.localRotation = Quaternion.RotateTowards(gunPivot.localRotation, verticalRotation, rotationSpeed * Time.deltaTime);
+            Vector3 localDirection = turretBase.InverseTransformDirection(position - gunPivot.position);
+
+            float angle = CalculateLaunchAngle(localDirection.magnitude, localDirection.y);
+            if (angle > 0)
+            {
+                Quaternion verticalRotation = Quaternion.Euler(-angle, 0, 0);
+                gunPivot.localRotation = Quaternion.RotateTowards(gunPivot.localRotation, verticalRotation, rotationSpeed * Time.deltaTime);
+            }
         }
     }
-
 
     private float CalculateLaunchAngle(float distance, float heightDifference)
     {
@@ -125,23 +117,22 @@ public class GunAAStation : AAStationBase
         if (fireCooldown > 0.01f) return;
         if (currentTarget == null) return;
 
-        Debug.DrawLine(gunBarrel.position, predictedPosition, Color.green, 0.5f);
-
-        GameObject bullet = Instantiate(bulletPrefab, gunBarrel.position, gunBarrel.rotation);
-        Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
-        if (bulletRb != null)
+        foreach (var gunBarrel in gunBarrels)
         {
-            Vector3 direction = (predictedPosition - gunBarrel.position).normalized;
-            bulletRb.velocity = direction * bulletSpeed;
+            GameObject bullet = Instantiate(bulletPrefab, gunBarrel.position, gunBarrel.rotation);
+            Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+            if (bulletRb != null)
+            {
+                Vector3 direction = (predictedPosition - gunBarrel.position).normalized;
+                bulletRb.velocity = direction * bulletSpeed;
+            }
+
+            Debug.DrawLine(gunBarrel.position, predictedPosition, Color.green, 0.5f);
         }
-
-        CameraShake.Instance.ShakeWithDistance(gunBarrel.position, 0.4f, 40f, 0.05f);
-
 
         fireCooldown = 1f / fireRate;
         DecreaseAmmo();
     }
-
 
     public float GetBulletSpeed() => bulletSpeed;
     public float GetFireRate() => fireRate;

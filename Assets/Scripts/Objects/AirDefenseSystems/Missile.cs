@@ -129,7 +129,7 @@ public class Missile : MonoBehaviour
     #endregion
 
     #region Trail Handling
-
+     
     private void UpdateTrailPosition()
     {
         if (trailInstance != null)

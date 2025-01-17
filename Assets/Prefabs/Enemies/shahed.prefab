@@ -509,6 +509,7 @@ MonoBehaviour:
   collisionThreshold: 1
   wobbleIntensity: 0.2
   wobbleFrequency: 0.2
+  fireSmokeEffectPrefab: {fileID: 8295591563862043295, guid: e01f2e62cf41a3449be2dade3b2c2d79, type: 3}
 --- !u!114 &6171848146068264023
 MonoBehaviour:
   m_ObjectHideFlags: 0

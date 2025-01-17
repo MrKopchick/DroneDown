@@ -33,7 +33,7 @@ public class TimeUI : MonoBehaviour
 
         DateTime currentTime = TimeManager.Instance.CurrentTime;
         
-        timeText.text = currentTime.ToString("yyyy MMMM HH:mm", CultureInfo.InvariantCulture);
+        timeText.text = currentTime.ToString("yyyy MMMM ddd HH:mm", CultureInfo.InvariantCulture);
     }
     
     
