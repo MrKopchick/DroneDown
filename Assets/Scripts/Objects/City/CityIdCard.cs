@@ -36,6 +36,7 @@ public class CityIdCard : MonoBehaviour
         if (IDCardManager.Instance != null)
         {
             CityPanelUI.Instance.ShowCityPanel(cityStats);
+            GameManager.Instance.isPauseReady = false;
         }
         else
         {

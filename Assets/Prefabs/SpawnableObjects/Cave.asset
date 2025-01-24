@@ -18,5 +18,5 @@ MonoBehaviour:
   requiresConstruction: 0
   baseConstructionTime: 10
   constructionSpeedMultiplier: 1
-  isTarget: 1
+  isTarget: 0
   price: 7000

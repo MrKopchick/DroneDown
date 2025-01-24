@@ -1,6 +1,7 @@
 using UnityEngine;
-using  TMPro;
+using TMPro;
 using DG.Tweening;
+
 public class HoverUIManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text hoverText;
@@ -30,7 +31,7 @@ public class HoverUIManager : MonoBehaviour
 
     private void Update()
     {
-        if (isHovering)
+        if (isHovering && !CameraController.IsInputBlocked)
         {
             UpdateHoverPosition();
         }
@@ -38,8 +39,10 @@ public class HoverUIManager : MonoBehaviour
 
     public void ShowHoverText(string text, Vector3 worldPosition)
     {
+        if (CameraController.IsInputBlocked) return;
+
         hoverText.text = text;
-        
+
         hoverText.gameObject.SetActive(true);
         hoverText.color = new Color(hoverText.color.r, hoverText.color.g, hoverText.color.b, 0);
         hoverText.DOFade(1f, 0.3f).SetEase(Ease.OutQuad);

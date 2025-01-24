@@ -128,6 +128,16 @@ public class GunAAStation : AAStationBase
             }
 
             Debug.DrawLine(gunBarrel.position, predictedPosition, Color.green, 0.5f);
+
+            if (CameraShake.Instance != null)
+            {
+                CameraShake.Instance.ShakeWithDistance(
+                    gunBarrel.position,
+                    maxIntensity: 0.2f,
+                    maxDistance: 40f,
+                    amplitudeMultiplier: 0.02f 
+                );
+            }
         }
 
         fireCooldown = 1f / fireRate;

@@ -9,6 +9,9 @@ public class TimeManager : MonoBehaviour
     private float realTimeSecondsPerStep = 0.5f;
     private float timeAccumulator = 0f;
 
+    [Header("Advance Settings")]
+    [SerializeField] private int startHour = 8;
+
     public DateTime CurrentTime => inGameTime;
 
     private void Awake()
@@ -23,7 +26,7 @@ public class TimeManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        inGameTime = new DateTime(2032, 9, 1, 3, 0, 0);
+        inGameTime = new DateTime(2032, 9, 1, startHour, 0, 0);
     }
 
     private void Update()

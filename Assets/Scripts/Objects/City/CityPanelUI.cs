@@ -70,6 +70,7 @@ public class CityPanelUI : MonoBehaviour
         UpdateCityDetails();
         panel.DOAnchorPos(visiblePosition, animationDuration).SetEase(Ease.OutQuad);
         isPanelOpen = true;
+        GameManager.Instance.isPauseReady = false;
     }
 
     public void HideCityPanel(TweenCallback onComplete = null)
@@ -85,6 +86,7 @@ public class CityPanelUI : MonoBehaviour
                 IDCardManager.Instance.RestorePanel();
             }
             onComplete?.Invoke();
+            GameManager.Instance.isPauseReady = true;
         });
     }
 
@@ -113,7 +115,7 @@ public class CityPanelUI : MonoBehaviour
     {
         if (currentCityStats != null)
         {
-            currentCityStats.BuildBunker(1000); // Example cost
+            currentCityStats.BuildBunker(1000);
             UpdateCityDetails();
         }
     }
@@ -122,7 +124,7 @@ public class CityPanelUI : MonoBehaviour
     {
         if (currentCityStats != null)
         {
-            currentCityStats.BuildHospital(1500); // Example cost
+            currentCityStats.BuildHospital(1500);
             UpdateCityDetails();
         }
     }
@@ -131,7 +133,7 @@ public class CityPanelUI : MonoBehaviour
     {
         if (currentCityStats != null)
         {
-            currentCityStats.RepairInfrastructure(500); // Example cost
+            currentCityStats.RepairInfrastructure(500);
             UpdateCityDetails();
         }
     }

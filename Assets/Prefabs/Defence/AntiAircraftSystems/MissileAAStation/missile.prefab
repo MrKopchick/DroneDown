@@ -195,10 +195,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialSpeed: 25
-  maxSpeed: 25
-  acceleration: 2
-  rotationSpeed: 6
-  collisionRadius: 1
+  maxSpeed: 35
+  acceleration: 5
+  rotationSpeed: 10
+  collisionRadius: 3
   maxLifetime: 50
   trailEffect: {fileID: 4686264437712795793}
   missileLight: {fileID: 5043827020849945268}

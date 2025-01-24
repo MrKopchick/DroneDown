@@ -12,10 +12,10 @@ public class OpenPanelScript : MonoBehaviour
         public RectTransform panelPrefab; 
     }
 
-    public List<ButtonPanelPair> buttonPanelPairs; 
-    public Transform spawnPoint; 
-    public Transform finalPoint; 
-    public float animationDuration = 0.5f; 
+    [SerializeField] private List<ButtonPanelPair> buttonPanelPairs; 
+    [SerializeField] private Transform spawnPoint; 
+    [SerializeField] private Transform finalPoint; 
+    [SerializeField] private float animationDuration = 0.3f; 
 
     private RectTransform currentPanel;
     private Button currentButton; 
@@ -47,10 +47,12 @@ public class OpenPanelScript : MonoBehaviour
                 return;
             }
             CloseCurrentPanel(() => OpenPanel(pair));
+            GameManager.Instance.isPauseReady = false;
         }
         else
         {
             OpenPanel(pair);
+            GameManager.Instance.isPauseReady = false;
         }
     }
 
@@ -63,12 +65,14 @@ public class OpenPanelScript : MonoBehaviour
         
         currentPanel.DOAnchorPos(finalPoint.GetComponent<RectTransform>().anchoredPosition, animationDuration)
             .SetEase(Ease.OutQuad);
+        
+        GameManager.Instance.isPauseReady = false;
     }
 
     private void CloseCurrentPanel(System.Action onComplete = null)
     {
         if (currentPanel == null) return;
-        
+
         currentPanel.DOAnchorPos(spawnPoint.GetComponent<RectTransform>().anchoredPosition, animationDuration)
             .SetEase(Ease.InQuad)
             .OnComplete(() =>
@@ -77,6 +81,7 @@ public class OpenPanelScript : MonoBehaviour
                 currentPanel = null;
                 currentButton = null;
                 onComplete?.Invoke();
+                GameManager.Instance.isPauseReady = true;
             });
     }
 }
