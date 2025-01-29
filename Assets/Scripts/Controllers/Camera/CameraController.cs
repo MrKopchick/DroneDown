@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (IsInputBlocked) return; // Не обробляти введення, якщо ввід заблоковано
+        if (IsInputBlocked) return;
 
         HandleScroll();
         HandlePan();
@@ -63,7 +63,6 @@ public class CameraController : MonoBehaviour
         targetHeight -= scroll * scrollSpeed;
         targetHeight = Mathf.Clamp(targetHeight, minHeight, maxHeight);
 
-        // Перевірка вертикального зіткнення
         if (Physics.Raycast(new Vector3(transform.position.x, targetHeight + 100f, transform.position.z), Vector3.down, out RaycastHit hit, Mathf.Infinity, terrainLayerMask))
         {
             float terrainHeight = hit.point.y + collisionOffset;
@@ -128,13 +127,11 @@ public class CameraController : MonoBehaviour
         Vector3 movementDirection = (targetPosition - transform.position).normalized;
         float movementDistance = Vector3.Distance(transform.position, targetPosition);
 
-        // Перевірка руху у горизонтальній площині
         if (Physics.SphereCast(transform.position, sphereRadius, movementDirection, out RaycastHit hit, movementDistance, terrainLayerMask))
         {
             targetPosition = hit.point - movementDirection * sphereRadius;
         }
 
-        // Перевірка вертикального руху (Y-вісь)
         if (Physics.Raycast(targetPosition + Vector3.up * 100f, Vector3.down, out RaycastHit verticalHit, Mathf.Infinity, terrainLayerMask))
         {
             float terrainHeight = verticalHit.point.y;
@@ -144,12 +141,6 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        // Плавне оновлення позиції камери
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, inertiaDuration);
     }
-
-
-
-
-
 }

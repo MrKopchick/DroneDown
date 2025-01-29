@@ -68,11 +68,7 @@ public class ShahedSpawnAI : MonoBehaviour
 
         if (houseManagers.Count == 0)
         {
-            Debug.LogWarning("No cities with house managers found.");
-        }
-        else
-        {
-            Debug.Log($"Found {houseManagers.Count} cities with house managers.");
+            Debug.LogWarning("No cities with house managers found");
         }
     }
 
@@ -196,13 +192,13 @@ public class ShahedSpawnAI : MonoBehaviour
 
     private void InitializeHolidays()
     {
-        AddHoliday(new DateTime(DateTime.Now.Year, 1, 1));  // New Year
-        AddHoliday(new DateTime(DateTime.Now.Year, 1, 7));  // Christmas
-        AddHoliday(new DateTime(DateTime.Now.Year, 8, 24)); // Independence Day
-        AddHoliday(new DateTime(DateTime.Now.Year, 12, 25));// Catholic Christmas
+        AddHoliday(new DateTime(DateTime.Now.Year, 1, 1)); 
+        AddHoliday(new DateTime(DateTime.Now.Year, 1, 7));
+        AddHoliday(new DateTime(DateTime.Now.Year, 8, 24));
+        AddHoliday(new DateTime(DateTime.Now.Year, 12, 25));
     }
 
-    public void AddHoliday(DateTime holiday)
+    private void AddHoliday(DateTime holiday)
     {
         if (!holidays.Contains(holiday)) holidays.Add(holiday);
     }
