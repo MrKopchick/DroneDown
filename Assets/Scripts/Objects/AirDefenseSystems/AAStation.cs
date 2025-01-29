@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using Game.Industry;
+using Game.Construction;
 public class AAStation : MonoBehaviour
 {
     [Header("Settings")]
@@ -23,7 +24,7 @@ public class AAStation : MonoBehaviour
     private void Awake()
     {
         currentMissiles = maxMissiles;
-        missileStorageManager = FindObjectOfType<MissileStorageManager>();
+        missileStorageManager = new MissileStorageManager();
         constructionProcess = GetComponent<ConstructionProcess>();
 
         ValidateDependencies();
@@ -37,7 +38,7 @@ public class AAStation : MonoBehaviour
         HandleFiring();
     }
 
-    private bool IsUnderConstruction() => constructionProcess != null && constructionProcess.ConstructionProgress < 1f;
+    private bool IsUnderConstruction() => constructionProcess != null && constructionProcess.Progress < 1f;
 
     private void ValidateDependencies()
     {

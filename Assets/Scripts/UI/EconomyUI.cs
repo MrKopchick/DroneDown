@@ -1,6 +1,7 @@
-﻿// EconomyUI.cs
-using UnityEngine;
+﻿using UnityEngine;
+using Game.Economy;
 using TMPro;
+
 namespace Economy.UI {
     public class EconomyUI : MonoBehaviour
     {

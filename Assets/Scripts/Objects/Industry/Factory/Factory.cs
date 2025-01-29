@@ -1,16 +1,20 @@
 using UnityEngine;
+using Game.Construction;
 
-public class Factory : MonoBehaviour
+namespace Game
 {
-    public float buildBoost = 1.0f;
-
-    private void Start()
+    public class Factory : MonoBehaviour
     {
-        ConstructionQueue.Instance.RegisterFactory(this);
-    }
+        public float buildBoost = 1.0f;
 
-    private void OnDestroy()
-    {
-        ConstructionQueue.Instance.UnregisterFactory(this); 
+        private void Start()
+        {
+            ConstructionQueue.Instance.RegisterFactory(this);
+        }
+
+        private void OnDestroy()
+        {
+            ConstructionQueue.Instance.UnregisterFactory(this); 
+        }
     }
 }

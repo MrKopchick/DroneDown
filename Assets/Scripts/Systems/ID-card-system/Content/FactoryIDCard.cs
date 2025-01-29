@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using Game;
 public class FactoryIDCard : IDCardBase
 {
     private Factory factory;

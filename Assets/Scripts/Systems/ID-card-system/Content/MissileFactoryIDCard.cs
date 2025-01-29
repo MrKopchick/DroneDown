@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using Game.Industry;
 public class MissileFactoryIDCard : IDCardBase
 {
     private MissileFactory factory;

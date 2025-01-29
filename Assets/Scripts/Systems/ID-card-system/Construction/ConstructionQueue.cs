@@ -1,132 +1,81 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConstructionQueue : MonoBehaviour
+namespace Game.Construction
 {
-    public static ConstructionQueue Instance;
-
-    private Queue<ConstructionProcess> constructionQueue = new Queue<ConstructionProcess>();
-    private List<Factory> activeFactories = new List<Factory>();
-    private bool isBuilding = false;
-
-    private void Awake()
+    public sealed class ConstructionQueue : MonoBehaviour
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+        public static ConstructionQueue Instance { get; private set; }
 
-    public void RegisterFactory(Factory factory)
-    {
-        if (!activeFactories.Contains(factory))
+        private readonly Queue<ConstructionProcess> queue = new();
+        private readonly List<Factory> factories = new();
+        private bool isBuilding;
+
+        private void Awake() => InitializeSingleton();
+
+        private void InitializeSingleton()
         {
-            activeFactories.Add(factory);
-            Debug.Log($"Factory has been register. Factory count: {activeFactories.Count}");
+            if (Instance == null) Instance = this;
+            else Destroy(gameObject);
+        }
+
+        public void RegisterFactory(Factory factory)
+        {
+            if (!factories.Contains(factory))
+            {
+                factories.Add(factory);
+                UpdateConstructionSpeed();
+            }
+        }
+
+        public void UnregisterFactory(Factory factory)
+        {
+            if (factories.Remove(factory))
+            {
+                UpdateConstructionSpeed();
+            }
+        }
+
+        public void Enqueue(ConstructionProcess process)
+        {
+            if (process == null) return;
             
-            UpdateCurrentBuildSpeed();
+            queue.Enqueue(process);
+            if (!isBuilding) StartNextProcess();
         }
-    }
 
-    public void UnregisterFactory(Factory factory)
-    {
-        if (activeFactories.Contains(factory))
+        private void StartNextProcess()
         {
-            activeFactories.Remove(factory);
-            Debug.Log($"Factory has been destroyed, Factory count: {activeFactories.Count}");
-
-            if (activeFactories.Count == 0)
+            if (queue.Count == 0)
             {
-                PauseCurrentConstruction();
+                isBuilding = false;
+                return;
             }
-        }
-    }
 
-    public void AddToQueue(ConstructionProcess construction)
-    {
-        if (construction == null || !construction.gameObject.activeInHierarchy)
-        {
-            Debug.LogWarning("Спроба додати недійсний об'єкт до черги.");
-            return;
-        }
-
-        constructionQueue.Enqueue(construction);
-        Debug.Log($"Додано до черги: {construction.gameObject.name}");
-
-        if (!isBuilding)
-        {
-            StartNextConstruction();
-        }
-    }
-
-    private void StartNextConstruction()
-    {
-        if (constructionQueue.Count > 0)
-        {
             isBuilding = true;
-            var nextConstruction = constructionQueue.Peek();
-            nextConstruction.StartBuilding(activeFactories);
-            Debug.Log($"Start construction for: {nextConstruction.gameObject.name}");
+            var process = queue.Peek();
+            process.StartBuilding(CalculateBuildSpeed());
         }
-        else
+
+        public void NotifyComplete()
         {
-            isBuilding = false;
-            Debug.Log("Queue empty");
+            if (queue.Count > 0) queue.Dequeue();
+            StartNextProcess();
         }
-    }
 
-
-    public void NotifyConstructionComplete()
-    {
-        if (constructionQueue.Count > 0)
+        private void UpdateConstructionSpeed()
         {
-            constructionQueue.Dequeue();
-        }
-        
-        StartNextConstruction();
-    }
-
-    private void PauseCurrentConstruction()
-    {
-        if (constructionQueue.Count > 0)
-        {
-            var currentConstruction = constructionQueue.Peek();
-            if (currentConstruction != null && currentConstruction.gameObject.activeInHierarchy)
+            if (queue.Count > 0 && queue.Peek() is { } process)
             {
-                currentConstruction.UpdateBuildingSpeed(0);
+                process.UpdateBuildingSpeed(CalculateBuildSpeed());
             }
         }
-    }
 
-    private void UpdateCurrentBuildSpeed()
-    {
-        if (constructionQueue.Count > 0)
+        private float CalculateBuildSpeed()
         {
-            var currentConstruction = constructionQueue.Peek();
-            if (currentConstruction != null && currentConstruction.gameObject.activeInHierarchy)
-            {
-                currentConstruction.UpdateBuildingSpeed(CalculateBuildSpeed());
-            }
-            else
-            {
-                Debug.LogWarning("Поточний об'єкт будівництва недійсний. Перемикаємося.");
-                NotifyConstructionComplete();
-            }
+            float speed = 1f;
+            factories.ForEach(f => speed += f.buildBoost);
+            return Mathf.Max(speed, 0.5f);
         }
-    }
-
-    private float CalculateBuildSpeed()
-    {
-        float totalBoost = 0f;
-        foreach (var factory in activeFactories)
-        {
-            totalBoost += factory.buildBoost;
-        }
-
-        return Mathf.Max(totalBoost, 0.5f);
     }
 }

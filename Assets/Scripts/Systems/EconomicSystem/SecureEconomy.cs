@@ -1,34 +1,33 @@
 ﻿using UnityEngine;
 
-public class SecureEconomy
+namespace Game.Economy
 {
-    private int playerMoney = 100000;
-
-    public int PlayerMoney => playerMoney;
-
-    public SecureEconomy(int initialMoney)
+    public sealed class SecureEconomy
     {
-        playerMoney = initialMoney;
-    }
+        private int balance;
 
-    public bool SpendMoney(int amount)
-    {
-        if (amount <= 0 || playerMoney < amount)
+        public int Balance => balance; 
+        public int PlayerMoney => balance;
+
+        public SecureEconomy(int initialBalance)
         {
-            Debug.LogWarning("Insufficient funds or invalid amount.");
-            return false;
+            balance = Mathf.Max(initialBalance, 0);
         }
-        playerMoney -= amount;
-        Debug.Log($"Spent: {amount}, Remaining: {playerMoney}");
-        return true;
-    }
 
-    public void AddMoney(int amount)
-    {
-        if (amount > 0)
+        public bool Spend(int amount)
         {
-            playerMoney += amount;
-            Debug.Log($"Added: {amount}, New Balance: {playerMoney}");
+            if (amount <= 0 || balance < amount) return false;
+
+            balance -= amount;
+            return true;
+        }
+
+        public void Add(int amount)
+        {
+            if (amount > 0)
+            {
+                balance += amount;
+            }
         }
     }
 }

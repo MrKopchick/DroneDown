@@ -1,5 +1,6 @@
 using UnityEngine;
-
+using Game.Construction;
+using Game.Spawning.Data;
 public class GenericIDCard : MonoBehaviour
 {
     public SpawnableObject spawnableObject;
@@ -24,14 +25,13 @@ public class GenericIDCard : MonoBehaviour
     {
         if (spawnableObject == null) return "No data available.";
 
-        if (constructionProcess != null && constructionProcess.ConstructionProgress < 1f)
+        if (constructionProcess != null && constructionProcess.Progress < 1f)
         {
             return $"Name: {spawnableObject.objectName}\n" +
-                   $"Construction Progress: {Mathf.RoundToInt(constructionProcess.ConstructionProgress * 100)}%";
+                   $"Construction Progress: {Mathf.RoundToInt(constructionProcess.Progress * 100)}%";
         }
 
         return $"Name: {spawnableObject.objectName}\n" +
                $"Status: Fully Operational";
     }
-
 }

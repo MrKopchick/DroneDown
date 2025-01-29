@@ -1,5 +1,6 @@
 using UnityEngine;
-
+using Game.Construction;
+using Game.Spawning.Data;
 public abstract class IDCardBase : MonoBehaviour
 {
     [SerializeField] protected SpawnableObject spawnableObject;
@@ -21,10 +22,10 @@ public abstract class IDCardBase : MonoBehaviour
     {
         var constructionProcess = GetComponent<ConstructionProcess>();
 
-        if (constructionProcess != null && constructionProcess.ConstructionProgress < 1f)
+        if (constructionProcess != null && constructionProcess.Progress < 1f)
         {
             return $"Name: {ObjectName}\n" +
-                   $"Construction Progress: {Mathf.RoundToInt(constructionProcess.ConstructionProgress * 100)}%";
+                   $"Construction Progress: {Mathf.RoundToInt(constructionProcess.Progress * 100)}%";
         }
 
         string baseContent = $"Name: {ObjectName}\n";

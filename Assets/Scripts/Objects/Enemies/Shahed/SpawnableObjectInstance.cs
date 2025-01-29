@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using Game.Spawning.Data;
 public class SpawnableObjectInstance : MonoBehaviour
 {
     [Header("Object Settings")]

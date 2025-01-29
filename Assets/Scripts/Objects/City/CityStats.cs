@@ -1,4 +1,5 @@
 using UnityEngine;
+using Game.Economy;
 
 public class CityStats : MonoBehaviour
 {
@@ -65,7 +66,7 @@ public class CityStats : MonoBehaviour
 
     public void BuildBunker(int cost)
     {
-        if (bunkers < maxBunkers && EconomyManager.Instance.SpendMoney(cost))
+        if (bunkers < maxBunkers && EconomyManager.Instance.Spend(cost))
         {
             bunkers++;
             NotificationManager.Instance.ShowMessage($"{cityName}: Bunker built. Total: {bunkers}.", "green");
@@ -79,7 +80,7 @@ public class CityStats : MonoBehaviour
 
     public void BuildHospital(int cost)
     {
-        if (hospitals < maxHospitals && EconomyManager.Instance.SpendMoney(cost))
+        if (hospitals < maxHospitals && EconomyManager.Instance.Spend(cost))
         {
             hospitals++;
             Debug.Log($"{cityName}: Hospital built. Total hospitals: {hospitals}");
@@ -92,7 +93,7 @@ public class CityStats : MonoBehaviour
 
     public void RepairInfrastructure(int cost)
     {
-        if (infrastructureIntegrity < 100 && EconomyManager.Instance.SpendMoney(cost))
+        if (infrastructureIntegrity < 100 && EconomyManager.Instance.Spend(cost))
         {
             infrastructureIntegrity = Mathf.Min(100, infrastructureIntegrity + 20);
             Debug.Log($"{cityName}: Infrastructure repaired to {infrastructureIntegrity}%.");
