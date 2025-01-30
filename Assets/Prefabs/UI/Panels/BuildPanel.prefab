@@ -2834,7 +2834,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2112327776263138398}
-  - component: {fileID: 3902230894422566612}
+  - component: {fileID: 2881396517199246027}
   m_Layer: 5
   m_Name: SpawnManager
   m_TagString: Untagged
@@ -2862,7 +2862,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3902230894422566612
+--- !u!114 &2881396517199246027
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2871,15 +2871,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3172725526784450990}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49fe65f51764e09489f0eda3283657c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 138a3c79b7ade804d91b812c900b1ea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placementLayer:
+  placementMask:
     serializedVersion: 2
     m_Bits: 8
-  maxSlopeAngle: 30
-  minDistanceBetweenObjects: 10
-  maxHeightDifference: 2
 --- !u!1 &3288197450454927069
 GameObject:
   m_ObjectHideFlags: 0
@@ -3228,7 +3225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnableObject: {fileID: 11400000, guid: 54cd95849ce33134bac02d0272b944a5, type: 2}
-  spawnManager: {fileID: 3902230894422566612}
+  spawnController: {fileID: 2881396517199246027}
   spawnColor: {r: 0.4627451, g: 0.6431373, b: 0.5294118, a: 1}
   cancelColor: {r: 0.6431373, g: 0.4627451, b: 0.4745098, a: 1}
   errorColor: {r: 0.6431373, g: 0.4627451, b: 0.4745098, a: 1}
@@ -4332,7 +4329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnableObject: {fileID: 11400000, guid: 85f575cedeff7d349ac7fbf43016cb6a, type: 2}
-  spawnManager: {fileID: 3902230894422566612}
+  spawnController: {fileID: 2881396517199246027}
   spawnColor: {r: 0.4627451, g: 0.6431373, b: 0.5294118, a: 1}
   cancelColor: {r: 0.6431373, g: 0.4627451, b: 0.4745098, a: 1}
   errorColor: {r: 0.6431373, g: 0.4627451, b: 0.4745098, a: 1}
@@ -5045,7 +5042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnableObject: {fileID: 11400000, guid: a3a8c7ff7cb0c89478514aebd611ecb1, type: 2}
-  spawnManager: {fileID: 3902230894422566612}
+  spawnController: {fileID: 2881396517199246027}
   spawnColor: {r: 0.4627451, g: 0.6431373, b: 0.5294118, a: 1}
   cancelColor: {r: 0.6431373, g: 0.4627451, b: 0.4745098, a: 1}
   errorColor: {r: 0.6431373, g: 0.4627451, b: 0.4745098, a: 1}
@@ -5941,7 +5938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnableObject: {fileID: 11400000, guid: 6d47fb62095d8164ab12784c7cc52c6b, type: 2}
-  spawnManager: {fileID: 3902230894422566612}
+  spawnController: {fileID: 2881396517199246027}
   spawnColor: {r: 0.4627451, g: 0.6431373, b: 0.5294118, a: 1}
   cancelColor: {r: 0.6431373, g: 0.4627451, b: 0.4745098, a: 1}
   errorColor: {r: 0.6431373, g: 0.4627451, b: 0.4745098, a: 1}
@@ -6134,7 +6131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnableObject: {fileID: 11400000, guid: 1feaddc6c016a1d4e91eeae1050a4319, type: 2}
-  spawnManager: {fileID: 3902230894422566612}
+  spawnController: {fileID: 2881396517199246027}
   spawnColor: {r: 0.4627451, g: 0.6431373, b: 0.5294118, a: 1}
   cancelColor: {r: 0.6431373, g: 0.4627451, b: 0.4745098, a: 1}
   errorColor: {r: 0.6431373, g: 0.4627451, b: 0.4745098, a: 1}

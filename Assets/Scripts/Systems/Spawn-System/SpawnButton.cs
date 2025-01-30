@@ -24,7 +24,13 @@ namespace Game.UI.Buttons
             button = GetComponent<Button>();
             buttonImage = GetComponent<Image>();
             button.onClick.AddListener(OnButtonClick);
+            spawnController.OnSpawningCanceled += HandleSpawningCanceled;
             UpdateButtonState();
+        }
+
+        private void OnDestroy()
+        {
+            spawnController.OnSpawningCanceled -= HandleSpawningCanceled;
         }
 
         private void OnButtonClick()
@@ -32,8 +38,6 @@ namespace Game.UI.Buttons
             if (isSpawning)
             {
                 spawnController.CancelSpawning();
-                isSpawning = false;
-                NotificationManager.Instance.ShowMessage("Spawn canceled.", "yellow");
             }
             else if (!EconomyManager.Instance.Spend(spawnableObject.price))
             {
@@ -48,6 +52,12 @@ namespace Game.UI.Buttons
                 NotificationManager.Instance.ShowMessage($"Started spawning: {spawnableObject.objectName}.", "green");
             }
 
+            UpdateButtonState();
+        }
+
+        private void HandleSpawningCanceled()
+        {
+            isSpawning = false;
             UpdateButtonState();
         }
 
@@ -85,12 +95,6 @@ namespace Game.UI.Buttons
             {
                 buttonImage.color = spawnColor;
             }
-        }
-
-        public void ResetState()
-        {
-            isSpawning = false;
-            UpdateButtonState();
         }
     }
 }

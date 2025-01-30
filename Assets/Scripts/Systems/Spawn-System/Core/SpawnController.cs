@@ -17,6 +17,8 @@ namespace Game.Spawning.Controllers
         
         private SpawnableObject currentSpawnable;
 
+        public event System.Action OnSpawningCanceled;
+
         private void Awake()
         {
             previewManager = new PreviewManager();
@@ -35,6 +37,7 @@ namespace Game.Spawning.Controllers
         {
             currentSpawnable = null;
             previewManager.DestroyPreview();
+            OnSpawningCanceled?.Invoke();
         }
 
         private void Update()
@@ -66,5 +69,6 @@ namespace Game.Spawning.Controllers
         }
 
         public void RotatePreview(float degrees) => previewManager.Rotate(degrees);
+
     }
 }
