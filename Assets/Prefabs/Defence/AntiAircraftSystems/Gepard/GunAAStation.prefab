@@ -704,17 +704,12 @@ MonoBehaviour:
   maxAmmo: 500
   bulletPrefab: {fileID: 1341714363711859628, guid: df18d00a3ad11f2478f5b8b3684b6aba, type: 3}
   turretBase: {fileID: 1992258531282553398}
-  gunPivots:
-  - {fileID: 4198456640219879155}
-  - {fileID: 2582613501426461805}
   gunBarrels:
   - {fileID: 4295007615723525512}
   - {fileID: 1029164848347350569}
   fireRate: 5
   rotationSpeed: 200
   bulletSpeed: 150
-  fireRadius: 100
-  gravity: 7
 --- !u!114 &1506969835044722295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -764,8 +759,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.4989121, y: 0.5556848, z: 2.507989}
-  m_Center: {x: -0.03767109, y: 0.4291845, z: 0.1401735}
+  m_Size: {x: 1.4989121, y: 0.5556848, z: 2.2971482}
+  m_Center: {x: -0.03767109, y: 0.4291845, z: 0.034753144}
 --- !u!114 &763945527071962690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -791,7 +786,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce3f7c4a4bfcc342aa1483c1b313d3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseConstructionTime: 30
 --- !u!1 &1821317877596329500
 GameObject:
   m_ObjectHideFlags: 0

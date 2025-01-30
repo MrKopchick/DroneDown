@@ -1,4 +1,5 @@
 using UnityEngine;
+using Game.AA.Defenses;
 
 public class GunAAStationIDCard : IDCardBase
 {
@@ -8,23 +9,16 @@ public class GunAAStationIDCard : IDCardBase
     {
         base.Awake();
         gunAAStation = GetComponent<GunAAStation>();
-        if (gunAAStation == null)
-        {
-            Debug.LogError($"GunAAStation not found on {gameObject.name}");
-        }
     }
 
     public override string GetSpecificContent()
     {
         if (gunAAStation == null) return "No GunAAStation data available";
 
-        return $"Gun AA Station\n" +
-               $"--------------------------\n" +
-               $"Detection Radius: {gunAAStation.GetDetectionRadius()}m\n" +
-               $"Fire Rate: {gunAAStation.GetFireRate()} shots/sec\n" +
-               $"Bullet Speed: {gunAAStation.GetBulletSpeed()} m/s\n" +
-               $"Fire Radius: {gunAAStation.GetFireRadius()}m\n" +
-               $"Max Ammo: {gunAAStation.GetMaxAmmo()}\n" +
-               $"Current Ammo: {gunAAStation.GetCurrentAmmo()}";
+        return 
+               $"Detection Radius: {gunAAStation.DetectionRadius}m\n" +
+               $"Fire Rate: {gunAAStation.FireRate} shots/sec\n" +
+               $"Fire Radius: {gunAAStation.FireRadius}m\n" +
+               $"Current Ammo: {gunAAStation.CurrentAmmo} / {gunAAStation.MaxAmmo}\n";
     }
 }

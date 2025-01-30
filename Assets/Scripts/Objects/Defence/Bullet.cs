@@ -2,18 +2,29 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private float damage = 10f;
-    [SerializeField] private float lifetime = 5f;
+    [SerializeField] private int damage = 10;
     [SerializeField] private float speed = 20f;
+    [SerializeField] private float lifetime = 5f;
+    private Rigidbody rb;
 
-    private void Start()
+    private void Awake()
     {
+        rb = GetComponent<Rigidbody>();
         Destroy(gameObject, lifetime);
     }
 
-    private void Update()
+    private void Start()
     {
-        transform.position += transform.forward * speed * Time.deltaTime;
+        rb.velocity = transform.forward * speed;
+    }
+
+    public void Initialize(float bulletSpeed)
+    {
+        speed = bulletSpeed;
+        if (rb != null)
+        {
+            rb.velocity = transform.forward * speed;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
