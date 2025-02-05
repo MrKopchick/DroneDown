@@ -3,7 +3,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private int damage = 10;
-    [SerializeField] private float speed = 20f;
+    [SerializeField] private float BulletSpeed = 200f;
     [SerializeField] private float lifetime = 5f;
     private Rigidbody rb;
 
@@ -15,16 +15,7 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
-        rb.velocity = transform.forward * speed;
-    }
-
-    public void Initialize(float bulletSpeed)
-    {
-        speed = bulletSpeed;
-        if (rb != null)
-        {
-            rb.velocity = transform.forward * speed;
-        }
+        rb.velocity = transform.up * BulletSpeed;
     }
 
     private void OnTriggerEnter(Collider other)

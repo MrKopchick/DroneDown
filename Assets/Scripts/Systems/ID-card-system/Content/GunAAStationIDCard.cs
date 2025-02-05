@@ -17,8 +17,7 @@ public class GunAAStationIDCard : IDCardBase
 
         return 
                $"Detection Radius: {gunAAStation.DetectionRadius}m\n" +
-               $"Fire Rate: {gunAAStation.FireRate} shots/sec\n" +
-               $"Fire Radius: {gunAAStation.FireRadius}m\n" +
-               $"Current Ammo: {gunAAStation.CurrentAmmo} / {gunAAStation.MaxAmmo}\n";
+               $"Fire Rate: {gunAAStation.GetFireRate()} shots/sec\n" +
+               $"Fire Radius: {gunAAStation.GetFireRadius()}m\n";
     }
 }

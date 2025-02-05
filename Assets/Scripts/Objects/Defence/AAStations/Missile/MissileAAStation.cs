@@ -72,7 +72,6 @@ namespace Game.AA.Defenses
             var missile = Instantiate(missilePrefab, missileSpawnPoint.position, 
                 Quaternion.LookRotation(currentTarget.position - missileSpawnPoint.position));
             
-            // Initialize target directly
             var missileComponent = missile.GetComponent<Missile>();
             missileComponent.target = currentTarget;
             
